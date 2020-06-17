@@ -1,4 +1,6 @@
 Include/
 Lib/
 Scripts/
-pyvenv.cfg
+pretrained_models/
+output/
+/spl/__pycache__/

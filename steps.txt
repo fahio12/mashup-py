@@ -1,0 +1,4 @@
+bot separates instruments 
+mix them
+user focused not automated(could be a feature in the future)
+ui (end)
