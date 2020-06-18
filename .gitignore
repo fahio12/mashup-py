@@ -4,3 +4,4 @@ Scripts/
 pretrained_models/
 output/
 /spl/__pycache__/
+creds/

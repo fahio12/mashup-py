@@ -1,4 +1,7 @@
-bot separates instruments 
-mix them
-user focused not automated(could be a feature in the future)
-ui (end)
+library to edit music
+
+change key
+set on beat
+split instruments
+identify genre
+mashup
