@@ -1,7 +1,14 @@
 library to edit music
 
-change key
 set on beat
-split instruments
-identify genre
+split instruments v/
+export pre-drop,drop chorus,etc
 mashup
+change format
+
+https://github.com/jiaaro/pydub
+
+
+
+
+# Use frames in getFrames() to create an algorithm that detects the "important parts of the song"
