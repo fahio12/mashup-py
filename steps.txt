@@ -5,7 +5,7 @@ split instruments v/
 export pre-drop,drop chorus,etc
 mashup
 change format
-
+add librosa vocal/ melody separator
 https://github.com/jiaaro/pydub
 
 

@@ -26,6 +26,9 @@ def getFrames(song):
     Output:
     .wav song with the clicks for developing purposes
     .csv file with timesptamps of the clicks
+
+    Returns:
+    frames_time: all the times with onset
     """
     y, sr = librosa.load(f'./songs/{song}.mp3')
     # #get frames
@@ -37,3 +40,4 @@ def getFrames(song):
     #output
     librosa.output.write_wav(f'./output/{song}-onset.wav', y + clicks, sr)
     librosa.output.times_csv(f'./output/{song}-onsetimes.csv',frames_time)
+    return frames_time
