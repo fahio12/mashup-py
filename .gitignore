@@ -3,6 +3,7 @@ Lib/
 Scripts/
 pretrained_models/
 output/
-/spl/__pycache__/
+/funk/__pycache__/
 creds/
 sandbox.py
+log.txt
