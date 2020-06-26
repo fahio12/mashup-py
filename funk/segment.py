@@ -35,7 +35,7 @@ def getFrames(song):
     librosa.output.times_csv(f'./output/{song}-onsetimes.csv',frames_time)
     return frames_time
 
-def getSegment(mode,seconds = 15,frames_time):
+def getSegment(mode,frames_time,seconds = 15):
     """Gets Fastest/Slowest segments of the song
 
     Parameters:
@@ -49,7 +49,7 @@ def getSegment(mode,seconds = 15,frames_time):
     """
     # round times list to 3 decimal places so its easier to work withs
     times = []
-    for time in frameTimes:
+    for time in frames_time:
         times.append(round(time,3))
     # algorithm to get the most/least amount of frames in the time(seconds)
     fastest = segment(times[0],times[0],times) #sets the fastest temp var (most amount of frames)

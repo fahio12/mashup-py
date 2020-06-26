@@ -1,8 +1,8 @@
 library to edit music
 
-set on beat
+set on beat v/
 split instruments v/
-export pre-drop,drop chorus,etc
+export pre-drop,drop chorus,etc v/
 mashup
 change format
 add librosa vocal/ melody separator
