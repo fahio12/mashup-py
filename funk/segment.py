@@ -1,11 +1,13 @@
 import csv
 import librosa
+from pydub import AudioSegment
 import numpy as np
 
 class segment:
-    def __init__(self,startTime,endTime,times):
+    def __init__(self,startTime,endTime,times,length):
         self.startTime = startTime
         self.endTime = endTime
+        self.length = length
         self.startIndex = times.index(startTime)
         self.endIndex = times.index(endTime)
         self.frames = self.endIndex - self.startIndex
@@ -45,21 +47,21 @@ def getSegment(mode,frames_time,seconds = 15):
 
     Returns:
     object with details about the segments
-    (startTime,startIndex,endTime,endIndex,frames)
+    (startTime,startIndex,endTime,endIndex,frames,lengths=# of secs)
     """
     # round times list to 3 decimal places so its easier to work withs
     times = []
     for time in frames_time:
         times.append(round(time,3))
     # algorithm to get the most/least amount of frames in the time(seconds)
-    fastest = segment(times[0],times[0],times) #sets the fastest temp var (most amount of frames)
-    slowest = segment(times[0],times[len(times)-1],times) #sets the slowest temp var (least amount of frames)
+    fastest = segment(times[0],times[0],times,seconds) #sets the fastest temp var (most amount of frames)
+    slowest = segment(times[0],times[len(times)-1],times,seconds) #sets the slowest temp var (least amount of frames)
     for i in range(len(times)):
         dinamicTimes = times[i:]
         for j in range(len(dinamicTimes)):
             time = dinamicTimes[j] - times[i]
             if time >= seconds:
-                seg = segment(times[i],dinamicTimes[j],times)
+                seg = segment(times[i],dinamicTimes[j],times,seconds)
                 if mode == "fast":
                     if seg.frames > fastest.frames:
                         fastest = seg
@@ -72,3 +74,24 @@ def getSegment(mode,frames_time,seconds = 15):
         return fastest
     else:
         return slowest
+
+def export(song,seg,slice = 0,move = 0):
+    """Exports a segment and lets you do some changes to it
+    like adjusting the length and moving it
+
+    Parameters:
+    song (string): name of the song
+    seg (segment): segment object with details about the segment
+    slice (int): adjust the length of the segment (use negatives to decrease)
+    move (int): move the segment (use negatives to decrease)
+
+    Output:
+    .mp3 file with the segment
+
+    """
+    song_file = AudioSegment.from_mp3(f"./songs/{song}.mp3")
+    time = ((seg.startTime+move)*1000)+(seg.length*1000)
+    audio = song_file[:time]
+    time = (seg.length+slice) * 1000
+    audio = audio[-time:]
+    audio.export("sliced.mp3", format="mp3")
