@@ -12,7 +12,7 @@ class segment:
         self.endIndex = times.index(endTime)
         self.frames = self.endIndex - self.startIndex
 
-def getFrames(song):
+def getFrames(path):
     """Gets onset frames and times
 
     Parameters:
@@ -25,7 +25,7 @@ def getFrames(song):
     Returns:
     frames_time: list with all the times with onset
     """
-    y, sr = librosa.load(f'./songs/{song}.mp3')
+    y, sr = librosa.load(path)
     # #get frames
     onset_frames = librosa.onset.onset_detect(y=y, sr=sr)
     # #turn frames into time
@@ -33,8 +33,8 @@ def getFrames(song):
     # #create clicks
     clicks = librosa.clicks(frames_time, sr=sr, length=len(y))
     #output
-    librosa.output.write_wav(f'./output/{song}-onset.wav', y + clicks, sr)
-    librosa.output.times_csv(f'./output/{song}-onsetimes.csv',frames_time)
+    librosa.output.write_wav(f'./output/audio-onset.wav', y + clicks, sr)
+    librosa.output.times_csv(f'./output/audio-onsetimes.csv',frames_time)
     return frames_time
 
 def getSegment(mode,frames_time,seconds = 15):
@@ -75,7 +75,7 @@ def getSegment(mode,frames_time,seconds = 15):
     else:
         return slowest
 
-def export(song,seg,slice = 0,move = 0):
+def export(path,seg,slice = 0,move = 0):
     """Exports a segment and lets you do some changes to it
     like adjusting the length and moving it
 
@@ -89,9 +89,9 @@ def export(song,seg,slice = 0,move = 0):
     .mp3 file with the segment
 
     """
-    song_file = AudioSegment.from_mp3(f"./songs/{song}.mp3")
+    song_file = AudioSegment.from_mp3(path)
     time = ((seg.startTime+move)*1000)+(seg.length*1000)
     audio = song_file[:time]
     time = (seg.length+slice) * 1000
     audio = audio[-time:]
-    audio.export("sliced.mp3", format="mp3")
+    audio.export("segment.mp3", format="mp3")

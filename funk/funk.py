@@ -1,7 +1,7 @@
 from spleeter.separator import Separator
 
 
-def split(song,stems=2):
+def split(path,stems=2):
     """Separates instruments from the song
 
     Parameters:
@@ -14,4 +14,4 @@ def split(song,stems=2):
 
     """
     separator = Separator(f'spleeter:{stems}stems')
-    separator.separate_to_file(f'./songs/{song}.mp3', './output/instruments')
+    separator.separate_to_file(path, './output/instruments')

@@ -1,10 +1,11 @@
 from funk import funk,segment
+from tkinter.filedialog import askopenfilename
 
 if __name__ == '__main__':
-    times = segment.getFrames(song = "army")
-    fast = segment.getSegment(mode = "fast",frames_time = times)
-    slow = segment.getSegment(mode = "slow",frames_time = times)
-    print(f"Fast: {fast.startTime}[{fast.startIndex}] - {fast.endTime}[{fast.endIndex}] = {fast.frames}")
-    print(f"Slow: {slow.startTime}[{slow.startIndex}] - {slow.endTime}[{slow.endIndex}] = {slow.frames}")
-    segment.export("army",fast,move=10,slice=-2)
-# todo slice audio and output the slow and fast part of the song
+    print("Welcome to funk-py select select the mp3 file you want to use")
+    path = askopenfilename(filetypes=[("MP3 files", ".mp3")])
+    mode = input("Select mode (fast/slow): ")
+    times = segment.getFrames(path = path)
+    seg = segment.getSegment(mode = mode,frames_time = times)
+    segment.export(path=path,seg=seg)
+    funk.split(path)
